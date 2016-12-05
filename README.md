@@ -15,8 +15,7 @@ Check for tokens in files using tokencheckerOptions.
 * Execute `gradle uploadArchives` to add project to local repositories
 * Add the plugin like this:
 
-[code, lang=groovy]
-----
+```groovy
 apply plugin: "com.t1c.gradle.tokenchecker.plugin"
 
 buildscript {
@@ -27,20 +26,19 @@ buildscript {
     classpath "com.t1c.gradle.tokenchecker:gradle-tokenchecker-plugin:1.0.0"
   }
 }
-----
+```
 
 ## Configuration
 
 General configuration for the plugin goes inside a `tokencheckerOptions` plain groovy object in your build file and will applied to all tasks. For example:
 
-[code, lang=groovy]
-----
+```groovy
 tokencheckerOptions { 
     SEARCH_LOCATIONS = [ "/home/user/project/src/modules" , "../src/vendor/t1c/" ]
     PATTERNS = [ /(.*)ng-include(.*)/ , /(.*)<img(.*)/  ]
     IGNORED = ["my_file.js" , "index.jsp"]
 }
-----
+```
 
 ### Configuration parameters
 
