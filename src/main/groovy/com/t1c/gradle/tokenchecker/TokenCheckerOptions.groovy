@@ -12,4 +12,10 @@ class TokenCheckerOptions {
    * ex: String[] PATTERNS = [ /(.*)ng-include(.*)/ , /(.*)<img(.*)/  ]
    */
   String[] PATTERNS
+
+  /**
+   * Array of file names to ignore.
+   * ex: String[] PATTERNS = [ "myfile.ext" , "index.jsp"  ]
+   */
+  String[] IGNORED
 }

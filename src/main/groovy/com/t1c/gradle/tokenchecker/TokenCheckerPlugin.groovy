@@ -21,12 +21,13 @@ class TokenCheckerPlugin implements Plugin<Project> {
     def success = true;
     project.tokencheckerOptions.SEARCH_LOCATIONS.each {
       def dir = new File("${it}")
-      println "${it}"
       dir.eachFileRecurse (FileType.FILES) { file ->
-        project.tokencheckerOptions.PATTERNS.each { pattern ->
-          def test = new TokenCheckerPattern(regex: pattern);
-          if(test.match(file)){
-            success = false
+        if(!project.tokencheckerOptions.IGNORED.contains(file.name)){
+          project.tokencheckerOptions.PATTERNS.each { pattern ->
+            def test = new TokenCheckerPattern(regex: pattern);
+            if(test.match(file)){
+              success = false
+            }
           }
         }
       }
