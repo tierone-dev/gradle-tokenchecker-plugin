@@ -9,32 +9,25 @@ import groovy.io.FileType
 class TokenCheckerPlugin implements Plugin<Project> {
   void apply(Project project) {
     // Add the 'tokenchecker' extension object
-    project.extensions.create("tokencheckerOptions", TokenCheckerPluginExtension)
+    project.extensions.create("tokencheckerOptions", TokenCheckerOptions)
 
     //main task
-    project.task('policeTokens') { doLast { checkInvalidTemplates(project) } }
+    project.task('checkTokens') { doLast { matchTemplates(project) } }
   }
 
 
-  def checkInvalidTemplates(Project project) {
-    println "\tValidating html/angular tags ..."
+  def matchTemplates(Project project) {
+    println "\tSearching for tokens ..."
     def success = true;
     project.tokencheckerOptions.SEARCH_LOCATIONS.each {
       def dir = new File("${it}")
+      println "${it}"
       dir.eachFileRecurse (FileType.FILES) { file ->
-        project.tokencheckerOptions.INVALID_PATTERNS.each { pattern ->
-          file.eachLine { line, lineNumber ->
-            if(line.matches(pattern)) {
-              println "\t------------------------"
-              println "\tFound Forbidden Token "
-              println "\tToken: " + pattern
-              println "\tIn File: " + file.name
-              println "\t@Line: " + lineNumber
-              println "\t------------------------"
-              success = false
-            }
+        project.tokencheckerOptions.PATTERNS.each { pattern ->
+          def test = new TokenCheckerPattern(regex: pattern);
+          if(test.match(file)){
+            success = false
           }
-
         }
       }
     }
@@ -46,9 +39,4 @@ class TokenCheckerPlugin implements Plugin<Project> {
     }
 
   }
-}
-
-class TokenCheckerPluginExtension {
-  String[] SEARCH_LOCATIONS
-  String[] INVALID_PATTERNS
 }
