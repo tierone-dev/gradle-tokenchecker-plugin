@@ -1,10 +1,8 @@
-package com.t1c.gradle.tokenchecker;
+package com.t1c.gradle.tokenchecker
 
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-
-import groovy.io.FileType
 
 class TokenCheckerPlugin implements Plugin<Project> {
   void apply(Project project) {
@@ -18,18 +16,11 @@ class TokenCheckerPlugin implements Plugin<Project> {
 
   def matchTemplates(Project project) {
     println "\tSearching for tokens ..."
-    def success = true;
+    def success = true
     project.tokencheckerOptions.SEARCH_LOCATIONS.each {
-      def dir = new File("${it}")
-      dir.eachFileRecurse (FileType.FILES) { file ->
-        if(!project.tokencheckerOptions.IGNORED.contains(file.name)){
-          project.tokencheckerOptions.PATTERNS.each { pattern ->
-            def test = new TokenCheckerPattern(regex: pattern);
-            if(test.match(file)){
-              success = false
-            }
-          }
-        }
+      def location = new Location(root: new File(it), ignored: project.tokencheckerOptions.IGNORED)
+      if(location.search(project.tokencheckerOptions.PATTERNS)){
+        success = false
       }
     }
     if(success) {

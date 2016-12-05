@@ -1,10 +1,10 @@
 package com.t1c.gradle.tokenchecker
 
 class TokenCheckerPattern{
-  String regex;
+  String regex
 
   boolean match(File file){
-    def found = false;
+    def found = false
     file.eachLine { line, lineNumber ->
       if(line.matches(regex)) {
         println "\t------------------------"
@@ -15,6 +15,6 @@ class TokenCheckerPattern{
         found = true;
       }
     }
-    return found;
+    return found
   }
 }
