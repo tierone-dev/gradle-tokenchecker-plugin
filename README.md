@@ -1,5 +1,5 @@
 # gradle-tokenchecker-plugin
-A simple totaly configurable token checker plugin for gradle written in groovy
+A simple totally configurable token checker plugin for gradle written in groovy
 
 ## Tasks
 
@@ -30,7 +30,7 @@ buildscript {
 
 ## Configuration
 
-General configuration for the plugin goes inside a `tokencheckerOptions` plain groovy object in your build file and will applied to all tasks. For example:
+General configuration for the plugin goes inside a `tokencheckerOptions` plain groovy object in your build file that will be applied to all tasks. For example:
 
 ```groovy
 tokencheckerOptions { 
@@ -42,8 +42,8 @@ tokencheckerOptions {
 
 ### Configuration parameters
 
-Parameters supported by the plugin is:
+Parameters supported by the plugin are:
 
 * `SEARCH_LOCATIONS`: a string list with the source directories where you want to search.
 * `PATTERNS`: must pass a java/python regex array of patterns to match.
-* `IGNORED`: string list of file names to be globaly ignored.
+* `IGNORED`: string list of file names to be globally ignored.
