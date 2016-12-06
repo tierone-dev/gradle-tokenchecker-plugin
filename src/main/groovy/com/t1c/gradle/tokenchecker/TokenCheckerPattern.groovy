@@ -7,7 +7,7 @@ class TokenCheckerPattern{
     def found = false
     file.eachLine { line, lineNumber ->
       if(line.matches(regex)) {
-        println "\t------------------------"
+        println "\n\t------------------------"
         println "\tFound Match "
         println "\tToken: " + regex
         println "\tIn File: " + file.name

@@ -15,7 +15,7 @@ class TokenCheckerPlugin implements Plugin<Project> {
 
 
   def matchTemplates(Project project) {
-    println "\tSearching for tokens ..."
+    print "\tSearching for tokens ..."
     def success = true
     project.tokencheckerOptions.SEARCH_LOCATIONS.each {
       def location = new Location(root: new File(it), ignored: project.tokencheckerOptions.IGNORED)
@@ -24,7 +24,7 @@ class TokenCheckerPlugin implements Plugin<Project> {
       }
     }
     if(success) {
-      println "\tDone Validating..."
+      print "[DONE]\n"
     } else {
       println "\tValidation Failed... [ABORTING]"
       throw new GradleException("Validation Failed")
